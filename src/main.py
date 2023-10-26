@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
-
+from pathlib import Path
 from numerical_solution import get_numerical_solution, CoefType
 from alpha_minus_2_solution import get_p_alpha_minus_2
 from constant_coefs import get_constant_coef_solution
 from constants import *
 from inverse_laplace_functions import get_inv_laplace
 
+res_path = Path(__file__).parent.parent / 'res'
 
 constants_vals = Constants()
 constants_vals.val_a_top = -1
@@ -53,7 +54,7 @@ print(
 
 print('Обратное преобразование Лапласса')
 
-t_moments = np.exp(np.linspace(np.log(10-4), np.log(10 * 3600), num=2))
+t_moments = np.exp(np.linspace(np.log(10-4), np.log(10 * 3600), num=10))
 
 p_f_sol = get_inv_laplace(t_moments,lambda q: get_p_alpha_minus_2(x_D=x_D, val_s=q, vals=constants_vals))
 
@@ -62,7 +63,7 @@ plt.ylabel('Давление, бар')
 plt.xlabel('Время t, сек')
 plt.xscale('log')
 plt.grid(True)
-plt.savefig('res/res1.png', dpi=200)
+plt.savefig(str(res_path / 'res1.png'), dpi=200)
 
 plt.clf()
 plt.cla()
@@ -72,6 +73,6 @@ plt.ylabel('Давление, бар')
 plt.xlabel('Время t, ч')
 plt.xscale('log')
 plt.grid(True)
-plt.savefig('res/res2.png', dpi=200)
+plt.savefig(str(res_path / 'res2.png'), dpi=200)
 
 
